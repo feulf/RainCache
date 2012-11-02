@@ -1,5 +1,6 @@
 <?php
 
+
     /**
      *  RainCache
      *  -------------
@@ -16,16 +17,37 @@
     # Start the output buffer
     #--------------------------------
     ob_start();
+    
 
     #--------------------------------
     # Load the configuration
     #--------------------------------
     require __DIR__ . "/config.php";
-    
+
+
+
     #--------------------------------
     # Load the functions
     #--------------------------------
-    require __DIR__ . "/functions.php";
+    require __DIR__ . "/library/functions.php";
+
+
+
+    #--------------------------------
+    # Prepare plugins
+    #--------------------------------
+    $plugins = array( 
+                        "HTML"         => array(),
+                        //"CSS"        => array(),
+                        //"Javascript" => array()
+                    );
+
+    
+    #--------------------------------
+    # Prepare config
+    #--------------------------------
+    $RainCacheConfig["plugins"] = $plugins;
+
 
     
     #--------------------------------

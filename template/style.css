@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Lobster'), url(http://themes.googleusercontent.com/static/fonts/lobster/v5/8xaBBwqwZomW1W1sS-1tfaCWcynf_cDxXwCLxiixG1c.woff) format('woff');
+}
+
+body {
+  font: 14px Arial, sans-serif;
+  min-width: 910px;
+  padding: 0px;
+  margin: 50px;
+}
+a { text-decoration: none; }
+h1{font-family: Lobster, Arial, sans-serif;color:#369;font-size:32px;font-weight:100;line-height:32px;margin-bottom:15px;}
+div{line-height:18px;}
+.copy{position:absolute;bottom:50px;right:50px;font-family: Lobster, Arial, sans-serif;color:#369;font-size:22px;font-weight:100;}

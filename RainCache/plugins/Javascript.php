@@ -5,10 +5,15 @@
  * @param type $html
  * @return type 
  */
-function RainCompressJavascript($html, $RainCompressConfig) {
+function JavascriptRainCachePlugin($html, $pluginConfig, $container) {
 
-    $base_dir = $RainCompressConfig['base_dir'];
+    // get the context variables
+    $config         = $container["config"];
+
+    $base_dir       = $config['base_dir'];
+    $cacheFolder    = $config['absolute_cache_dir']; // css cache folder
     
+    // check if there's comments
     $htmlToCheck = preg_replace("<!--.*?-->", "", $html);
 
     // search for javascript
@@ -22,11 +27,10 @@ function RainCompressJavascript($html, $RainCompressConfig) {
         $md5Name .= basename($file);
     }
 
+    // set the name
     $cachedFilename = md5($md5Name);
-    $cacheFolder =  $RainCompressConfig['absolute_cache_dir']; // css cache folder
-    $cachedFilepath = $RainCompressConfig['absolute_cache_dir'] . $cachedFilename . ".js";
-    $cachedFileUrl = $RainCompressConfig['cache_url'] . $cachedFilename . ".js";
-
+    $cachedFilepath = $config['absolute_cache_dir'] . $cachedFilename . ".js";
+    $cachedFileUrl  = $config['cache_url'] . $cachedFilename . ".js";
 
     if (!file_exists($cachedFilepath)) {
         foreach ($matches[1] as $url) {
@@ -42,9 +46,6 @@ function RainCompressJavascript($html, $RainCompressConfig) {
                 else{
                     $javascriptFile = file_get_contents( $base_dir . $url );
                 }
-
-                
-                
 
                 // minify the js
                 $javascriptFile = preg_replace("#/\*.*?\*/#", "", $javascriptFile);
@@ -64,7 +65,7 @@ function RainCompressJavascript($html, $RainCompressConfig) {
     $html = preg_replace("/<script.*src=\"(.*?\.js)\".*>/", "", $html);
     $tag = '<script src="' . $cachedFileUrl . '"></script>';
 
-    if ($RainCompressConfig['javascript']['position'] == 'bottom') {
+    if ($config['javascript']['position'] == 'bottom') {
         $html = preg_replace("/<\/body>/", $tag . "</body>", $html);
     } else {
         $html = preg_replace("/<head>/", "<head>\n" . $tag, $html);

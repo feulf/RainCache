@@ -5,7 +5,11 @@
  * @param type $html
  * @return type 
  */
-function RainCompressHTML($html, $RainCompressConfig) {
+function HTMLRainCachePlugin($html, $pluginConfig, $container) {
+
+    // get the context variables
+    $config         = $container["config"];
+    
 
     // Set PCRE recursion limit to sane value = STACKSIZE / 500
     // ini_set("pcre.recursion_limit", "524"); // 256KB stack. Win32 Apache
@@ -29,17 +33,12 @@ function RainCompressHTML($html, $RainCompressConfig) {
             )             # End alternation group.
             )  # If we made it here, we are not in a blacklist tag.
             %Six';
+    
+    // apply the regular expression
     $html = preg_replace($re, " ", $html);
     if ($html === null)
         exit("PCRE Error! File too big.\n");
 
-    if ($RainCompressConfig['cache']) {
-
-        if (!is_dir($RainCompressConfig['absolute_cache_dir']))
-            mkdir($RainCompressConfig['absolute_cache_dir'], 0777, $recursive = true);
-
-        file_put_contents($RainCompressConfig['cache_filepath'], $html);
-    }
-
+    // return the context
     return $html;
 }
