@@ -1,3 +1,6 @@
+RainCache 
+---------
+
 RainCache is an automatic, easy and fast cache.
 It uses register_shutdown_function to catch the output of your website, compress it and cache it, so the next time your page will load faster
 
