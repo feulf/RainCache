@@ -8,9 +8,6 @@
  */
 function CSSRainCachePlugin($html, $pluginConfig, $container) {
 
-    // get the context variables
-    $config         = $container["config"];
-
     $baseDir        = $config['base_dir']; // base directory
     $baseUrl        = $config['base_url']; // base url
     $cacheFolder    = $config['absolute_cache_dir']; // css cache folder
@@ -110,6 +107,6 @@ function CSSRainCachePlugin($html, $pluginConfig, $container) {
     // add the tag to the end of the <head> tag
     $html = str_replace("</head>", $tag . "\n</head>", $html);
 
-    // return the stylesheet
+    // return the html
     return $html;
 }

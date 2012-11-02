@@ -5,10 +5,7 @@
  * @param type $html
  * @return type 
  */
-function JavascriptRainCachePlugin($html, $pluginConfig, $container) {
-
-    // get the context variables
-    $config         = $container["config"];
+function JavascriptRainCachePlugin($html, $pluginConfig, $config) {
 
     $base_dir       = $config['base_dir'];
     $cacheFolder    = $config['absolute_cache_dir']; // css cache folder

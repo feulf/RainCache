@@ -5,11 +5,7 @@
  * @param type $html
  * @return type 
  */
-function HTMLRainCachePlugin($html, $pluginConfig, $container) {
-
-    // get the context variables
-    $config         = $container["config"];
-    
+function HTMLRainCachePlugin($html, $pluginConfig, $config) {
 
     // Set PCRE recursion limit to sane value = STACKSIZE / 500
     // ini_set("pcre.recursion_limit", "524"); // 256KB stack. Win32 Apache
@@ -39,6 +35,6 @@ function HTMLRainCachePlugin($html, $pluginConfig, $container) {
     if ($html === null)
         exit("PCRE Error! File too big.\n");
 
-    // return the context
+    // return the html
     return $html;
 }

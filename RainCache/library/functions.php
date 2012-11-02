@@ -3,6 +3,7 @@
     /**
      * Load the cache if there is any
      * @global string $config
+     * 
      */
     function RainCacheLoad( $config ) {
         
@@ -48,39 +49,24 @@
     /**
      * Compress HTML, CSS and Javascript
      * @global type $config
+     * 
      */
     function RainCacheSave($config) {
 
         // get the Output
         $html = ob_get_clean();
         
-        // load plugins
-        $plugins = $config["plugins"];
-
         // if there is an error don't save it on cache
         $error = error_get_last();
         if ($error['type'] === E_ERROR) {
             die;
         }
-        
-        // run the plugins
-        foreach( $plugins as $pluginName => $pluginConfig ){
-            
-            // require the plugin
-            require __DIR__ . "/../Plugins/" . $pluginName . ".php";
-            
-            // set the plugin function name
-            $pluginFunction = $pluginName . "RainCachePlugin";
-            
-            // prepare the context
-            $context = array( "html"=>$html, "container"=>$container,"config"=>$pluginConfig);
-            
-            // execute the function
-            $html = $pluginFunction( $html, $container, $context );
-            
+
+        // load plugins
+        if( isset($config["plugins"]) ){
+            $html = loadPlugins( $html, $config );
         }
-
-
+        
         // if cache is enabled
         if ( $config['cache'] ) {
 
@@ -96,4 +82,34 @@
         // draw the Output
         echo $html;
         
+    }
+    
+    /**
+     * 
+     * @assert (123, null) == 123
+     * 
+     * Load the plugins
+     * @param type $html
+     * @param type $config
+     * @return type
+     */
+    function loadPlugins( $html, $config ){
+        
+        $plugins = $config["plugins"];
+        if( $plugins ){
+            // run the plugins
+            foreach( $plugins as $pluginName => $pluginConfig ){
+
+                // require the plugin
+                require __DIR__ . "/../Plugins/" . $pluginName . ".php";
+
+                // set the plugin function name
+                $pluginFunction = $pluginName . "RainCachePlugin";
+
+                // execute the function
+                $html = $pluginFunction( $html, $pluginConfig, $config );
+
+            }
+        }
+        return $html;
     }
