@@ -5,11 +5,12 @@
  * @param type $html
  * @return type 
  */
-function JavascriptRainCachePlugin($html, $pluginConfig, $config) {
+function javascriptRainCachePlugin($html, $pluginConfig, $config)
+{
 
     $base_dir       = $config['base_dir'];
     $cacheFolder    = $config['absolute_cache_dir']; // css cache folder
-    
+
     // check if there's comments
     $htmlToCheck = preg_replace("<!--.*?-->", "", $html);
 
@@ -17,7 +18,7 @@ function JavascriptRainCachePlugin($html, $pluginConfig, $config) {
     preg_match_all("/<script.*src=\"(.*?\.js)\".*>/", $htmlToCheck, $matches);
     $externalUrl = array();
     $javascript = "";
-    
+
     $javascriptFiles = $matches[1];
     $md5Name = "";
     foreach ($javascriptFiles as $file) {
@@ -37,11 +38,10 @@ function JavascriptRainCachePlugin($html, $pluginConfig, $config) {
                 $urlArray[$url] = $url;
 
                 // if not external
-                if( preg_match('#(http|https)://#', $url) ){
-                    $javascriptFile = file_get_contents( $url );
-                }
-                else{
-                    $javascriptFile = file_get_contents( $base_dir . $url );
+                if ( preg_match('#(http|https)://#', $url) ) {
+                    $javascriptFile = file_get_contents($url);
+                } else {
+                    $javascriptFile = file_get_contents($base_dir . $url);
                 }
 
                 // minify the js
@@ -52,8 +52,9 @@ function JavascriptRainCachePlugin($html, $pluginConfig, $config) {
             }
         }
 
-        if (!is_dir($cacheFolder))
+        if (!is_dir($cacheFolder)) {
             mkdir($cacheFolder, 0755, $recursive = true);
+        }
 
         // save the stylesheet
         file_put_contents($cachedFilepath, $javascript);

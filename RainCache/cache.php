@@ -17,7 +17,7 @@
     # Start the output buffer
     #--------------------------------
     ob_start();
-    
+
 
     #--------------------------------
     # Load the configuration
@@ -36,21 +36,21 @@
     #--------------------------------
     # Prepare plugins
     #--------------------------------
-    $plugins = array( 
+    $plugins = array(
                         "HTML"         => array(),
                         //"CSS"        => array(),
                         //"Javascript" => array()
                     );
 
-    
+
     #--------------------------------
     # Prepare config
     #--------------------------------
     $RainCacheConfig["plugins"] = $plugins;
 
 
-    
+
     #--------------------------------
     # Load the cache
     #--------------------------------
-    RainCacheLoad( $RainCacheConfig );
+    rainCacheLoad($RainCacheConfig);

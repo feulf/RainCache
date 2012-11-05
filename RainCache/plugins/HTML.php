@@ -5,7 +5,8 @@
  * @param type $html
  * @return type 
  */
-function HTMLRainCachePlugin($html, $pluginConfig, $config) {
+function htmlRainCachePlugin($html, $pluginConfig, $config)
+{
 
     // Set PCRE recursion limit to sane value = STACKSIZE / 500
     // ini_set("pcre.recursion_limit", "524"); // 256KB stack. Win32 Apache
@@ -29,11 +30,12 @@ function HTMLRainCachePlugin($html, $pluginConfig, $config) {
             )             # End alternation group.
             )  # If we made it here, we are not in a blacklist tag.
             %Six';
-    
+
     // apply the regular expression
     $html = preg_replace($re, " ", $html);
-    if ($html === null)
+    if ($html === null) {
         exit("PCRE Error! File too big.\n");
+    }
 
     // return the html
     return $html;
