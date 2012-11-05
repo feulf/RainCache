@@ -23,8 +23,7 @@ require "RainCache/cache.php";
             // query and slow operation here
             sleep(1);
 
-            ?>
-
+        ?>
         <div>
             <p><b>RainCache</b> is an automatic, easy and fast cache for your PHP website.</p>
             <p>All you have to do is just include the main file in your main script.</p>
